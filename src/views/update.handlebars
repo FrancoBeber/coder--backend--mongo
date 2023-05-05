@@ -1,0 +1,50 @@
+<script>
+  function updateProduct(code){ fetch(`http://localhost:8080/products/${code}`,
+  { method:"put", body: JSON.stringify({ title:
+  document.getElementById("title").value, description:
+  document.getElementById("description").value, price:
+  document.getElementById("price").value, thumbnail:
+  document.getElementById("thumbnail").value, code:
+  document.getElementById("code").value, stock:
+  document.getElementById("stock").value }), headers:{
+  "Content-Type":"application/json" } })
+  window.location.href="http://localhost:8080/products" }
+</script>
+<h1>Actualizar un producto</h1>
+<div id="">
+  Title:
+  <input type="text" id="title" name="title" value="{{product.title}}" />
+  <br />
+  <br />
+  Description:
+  <input
+    type="text"
+    id="description"
+    name="description"
+    value="{{product.description}}"
+  />
+  <br />
+  <br />
+  Price:
+  <input type="text" id="price" name="price" value="{{product.price}}" />
+  <br />
+  <br />
+  Thumbnail:
+  <input
+    type="text"
+    id="thumbnail"
+    name="thumbnail"
+    value="{{product.thumbnail}}"
+  />
+  <br />
+  <br />
+  Code:
+  <input type="text" id="code" name="code" value="{{product.code}}" />
+  <br />
+  <br />
+  Stock:
+  <input type="text" id="stock" name="stock" value="{{product.stock}}" />
+  <br />
+  <br />
+  <button onclick="updateProduct('{{product.code}}')">Actualizar</button>
+</div>

@@ -1,0 +1,18 @@
+<div>
+  <h1>Bienvenido</h1>
+  <div>La lista de carros es:</div>
+    {{#each carts}}
+        <h3>Carro:</h3>
+        <li>Id: {{this.id}}</li>
+        <h4>lista de productos</h4>
+        {{#each this.products}}
+        <li>Codigo producto: {{this.code}}</li>
+        <li>Cantidad: {{this.quantity}}</li>
+        <br />
+        {{/each}}
+        <br>
+        <br>
+    {{/each}}
+    
+  </ul>   
+</div>
