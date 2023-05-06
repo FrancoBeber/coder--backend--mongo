@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "Auricular Redragon",
+    "description": "Auriculares para escuchar audio en alta calidad",
+    "price": 9500,
+    "thumbnail": "sin foto",
+    "code": "hja124",
+    "stock": 100
+  },
+  {
+    "id": 2,
+    "title": "Celular Samsung",
+    "description": "Celular marca samsung",
+    "price": 55000,
+    "thumbnail": "sin foto",
+    "code": "opl674",
+    "stock": 200
+  },
+  {
+    "id": 3,
+    "title": "Mouse Redragon",
+    "description": "Mouse con 10000 dpi",
+    "price": 7000,
+    "thumbnail": "sin foto",
+    "code": "uib332",
+    "stock": 600
+  },
+  {
+    "id": 4,
+    "title": "Notebook Dell",
+    "description": "Dell Vostro 5500",
+    "price": 150000,
+    "thumbnail": "sin foto",
+    "code": "del550",
+    "stock": 20
+  },
+  {
+    "id": 5,
+    "title": "Soporte monitor",
+    "description": "Soporte hasta 2 monitores",
+    "price": 15000,
+    "thumbnail": "sin foto",
+    "code": "sop222",
+    "stock": 13
+  },
+  {
+    "id": 6,
+    "title": "TV Samsung",
+    "description": "TV 33 pulgadas",
+    "price": 55000,
+    "thumbnail": "sin foto",
+    "code": "tvs500",
+    "stock": 30
+  },
+  {
+    "id": 7,
+    "title": "Monitor PC",
+    "description": "Monitor Dell 24 pulgadas",
+    "price": 75000,
+    "thumbnail": "sin foto",
+    "code": "mod789",
+    "stock": 100
+  },
+  {
+    "id": 8,
+    "title": "Base Notebook",
+    "description": "Base para notebook",
+    "price": 3000,
+    "thumbnail": "sin foto",
+    "code": "bno558",
+    "stock": 300
+  },
+  {
+    "id": 9,
+    "title": "Vincha Logitech",
+    "description": "Logitech H390",
+    "price": 25000,
+    "thumbnail": "sin foto",
+    "code": "vlg390",
+    "stock": 120
+  },
+  {
+    "id": 10,
+    "title": "Soporte Auriculares",
+    "description": "Soporte auriculares, maximo 3",
+    "price": 7000,
+    "thumbnail": "sin foto",
+    "code": "spa385",
+    "stock": 76
+  }
+]
