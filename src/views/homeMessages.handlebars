@@ -1,0 +1,26 @@
+<script></script>
+<h1>Bienvenido</h1>
+<form action="/messages" method="post">
+  <div>
+    Usuario:
+    <input type="text" id="user" name="user" />
+    <br />
+    <br />
+    Mensaje:
+    <input type="text" id="message" name="message" />
+    <br />
+    <br />
+    <input type="submit" value="Enviar" />
+    <br />
+    <br />
+  </div>
+</form>
+  <div>La lista de mensajes es:</div>
+  {{#each messages}}
+    <br>
+    <li>Usuario: {{this.user}}</li>
+    <li>Mensaje: {{this.message}}</li>
+    <br>
+    <br>
+  {{/each}}
+</div>
