@@ -13,7 +13,6 @@ router.post("/", async (req, res) => {
   const messageNew = req.body;
   const messageGenerated = new messageModel(messageNew);
   await messageGenerated.save();
-  //
   res.redirect("/messages");
 });
 

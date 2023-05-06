@@ -1,0 +1,54 @@
+<script>
+  function deleteProduct(code){
+    fetch(`http://localhost:8080/products/${code}`, {
+      method: "delete"
+    })
+    window.location.href="http://localhost:8080/realtimeproducts"
+  }
+</script>
+<h1>Crear un nuevo producto</h1>
+<form action="/realtimeproducts" method="post">
+  Title:
+  <input type="text" name="title" />
+  <br />
+  <br />
+  Description:
+  <input type="text" name="description" />
+  <br />
+  <br />
+  Price:
+  <input type="text" name="price" />
+  <br />
+  <br />
+  Thumbnail:
+  <input type="text" name="thumbnail" />
+  <br />
+  <br />
+  Code:
+  <input type="text" name="code" />
+  <br />
+  <br />
+  Stock:
+  <input type="text" name="stock" />
+  <br />
+  <br />
+  <input type="submit" value="create" />
+</form>
+<br>
+<br>
+<div>
+  <div>La lista de productos es:</div>
+  <img>
+    {{#each products}}
+      <li>{{this.title}}</li>
+      <li>{{this.description}}</li>
+      <li>{{this.price}}</li>
+      <a href="/products/{{this.code}}"><img src="{{this.thumbnail}}" alt="" width="150"></img></a>
+      <li>{{this.code}}</li>
+      <li>{{this.stock}}</li>
+      <button id="btnDelete" onclick="deleteProduct('{{this.code}}')">Eliminar</button>
+      <br />
+      <br />
+    {{/each}}
+  </ul>
+</div>

@@ -2,6 +2,7 @@ import express from "express";
 import cartRouter from "./routes/carts.router.js";
 import productsRouter from "./routes/products.router.js";
 import messageRouter from "./routes/message.router.js";
+import realTimeProductsRouter from "./routes/realtimeproducts.router.js";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 app.use("/carts", cartRouter);
 app.use("/products", productsRouter);
 app.use("/messages", messageRouter);
+app.use("/realtimeproducts", realTimeProductsRouter);
 
 mongoose.set("strictQuery", false);
 try {
