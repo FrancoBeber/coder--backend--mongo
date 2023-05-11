@@ -27,35 +27,44 @@ router.put("/:id", async (req, res) => {
   const id = +req.params.id;
   const listProducts = req.body;
   const cart = await cartModel.findOne({ id: id }).lean().exec();
-  cart.products.push({ products: listProducts });
-  const result = await cartModel.updateOne({ id: id }, cart);
+  //cart.products.push({ products: listProducts });
+  try {
+    const result = await cartModel.updateOne(
+      { id: id },
+      { products: listProducts }
+    );
+  } catch (err) {
+    res.send({ err });
+  }
 });
 //probar
 router.put("/:id/products/:code", async (req, res) => {
   const id = +req.params.id;
   const codee = req.params.code;
-  const quant = req.body;
-  const cart = await cartModel.findOne({ id: id }).lean().exec();
-  cart.products.code(codee).quantity += quant;
-  const result = await cartModel.updateOne({ id: id }, cart);
-});
-/*
-router.get("/:id", (req, res) => {
-  const id = +req.params.id;
-  let datos = cartManager.getCartById(id);
-  if (!datos) {
-    res.send("Carro no encontrado");
-  } else {
-    res.send({ resultado: datos });
+  const quant = req.body.quantity;
+  //const cart = await cartModel.findOne({ id: id }).lean().exec();
+  //cart.products.code(codee).quantity += quant;
+  try {
+    const result = await cartModel.updateOne(
+      { id: id, products: { code: codee } },
+      { $set: { "products.quantity": quant } }
+    );
+  } catch (err) {
+    res.send({ err });
   }
 });
 
-router.post("/", (req, res) => {
-  const products = req.body;
-  console.log(products);
-  cartManager.addCart(products);
-  const carts = cartManager.getCarts();
-  res.status(201).send({ mensaje: "Producto creeado", carts });
+router.delete("/:id/products/:code", async (req, res) => {
+  const id = +req.params.id;
+  const code = req.params.code;
+  try {
+    const result = await cartModel.updateOne(
+      { id: id },
+      { $pull: { products: { code: code } } }
+    );
+  } catch (err) {
+    res.send({ err });
+  }
+  //res.redirect("/carts");
 });
-*/
 export default router;
