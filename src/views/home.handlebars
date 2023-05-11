@@ -9,8 +9,8 @@
 <div>
   <h1>Bienvenido</h1>
   <div>La lista de productos es:</div>
-  <img>
-    {{#each products}}
+  <ul>
+    {{#each docs}}
       <li>{{this.title}}</li>
       <li>{{this.description}}</li>
       <li>{{this.price}}</li>
@@ -23,4 +23,12 @@
       <br />
     {{/each}}
   </ul>
+  <div>
+    {{#if hasPrevPage}}
+      <a href="{{prevLink}}">Anterior</a>
+    {{/if}}
+    {{#if hasNextPage}}
+      <a href="{{nextLink}}">Siguiente</a>
+    {{/if}}
+  </div>
 </div>

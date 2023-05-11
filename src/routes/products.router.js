@@ -3,28 +3,36 @@ import express from "express";
 import productModel from "../models/product.model.js";
 
 const router = Router();
-//router.use(express.json);
-//router.use(express.urlencoded({ extended: true }));
+
+/*
 router.get("/", async (req, res) => {
   const products = await productModel.find().lean().exec();
   res.render("home", { products });
-  /*
-  let title = "Products";
-  const result = +req.query.limit;
-  if (!result) {
-    let salida = productManager.getProducts();
-    //res.send({ resultado: salida });
-    res.render("home", { salida, title });
+  }
+});
+*/
+
+router.get("/", async (req, res) => {
+  let limit = parseInt(req.query.limit);
+  let page = parseInt(req.query.page);
+  let sort = req.query.sort;
+  let ord;
+  if (!page) page = 1;
+  if (!limit) limit = 10;
+  if (!sort || sort == "asc") {
+    ord = 1;
   } else {
-    let nuevo;
-    let arr;
-    let salida;
-    nuevo = productManager.getProducts();
-    arr = Array.from(nuevo);
-    salida = arr.slice(0, result);
-    //res.send({ resultado: salida });
-    res.render("home", { salida, title });
-  }*/
+    ord = -1;
+  }
+  const products = await productModel.paginate({}, { page, limit, lean: true });
+  products.prevLink = products.hasPrevPage
+    ? `/products?page=${products.prevPage}&limit=${products.limit}`
+    : "";
+  products.nextLink = products.hasNextPage
+    ? `/products?page=${products.nextPage}&limit=${products.limit}`
+    : "";
+  console.log(products);
+  res.render("home", products);
 });
 
 router.get("/create", (req, res) => {
