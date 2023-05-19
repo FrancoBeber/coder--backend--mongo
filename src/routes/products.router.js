@@ -4,7 +4,14 @@ import productModel from "../models/product.model.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
+const auth = (req, res, next) => {
+  if (req.session.user) return next();
+  return res.send("Error de autenticacion...");
+};
+
+router.get("/", auth, async (req, res) => {
+  const us = req.session.user;
+  console.log(req.session.user);
   let limit = parseInt(req.query.limit);
   let page = parseInt(req.query.page);
   let sort = req.query.sort;
