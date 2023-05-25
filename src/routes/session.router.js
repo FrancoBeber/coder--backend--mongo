@@ -1,5 +1,6 @@
 import { Router } from "express";
 import userModel from "../models/user.model.js";
+import { createHash, isValidPassword } from "../util.js";
 
 const router = Router();
 
@@ -10,6 +11,8 @@ router.get("/register", (req, res) => {
 
 router.post("/register", async (req, res) => {
   const userNew = req.body;
+  userNew.password = createHash(req.body.password);
+
   const user = new userModel(userNew);
   await user.save();
   res.redirect("/sessions/login");
@@ -22,27 +25,32 @@ router.get("/login", (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
-  const user = await userModel.findOne({ email, password }).lean().exec();
+  const user = await userModel.findOne({ email }).lean().exec();
   if (!user) {
     return res.status(401).render("errors/base", {
-      error: "Error en email y/o contraseña",
+      error: "User not found",
     });
   }
+  if (!isValidPassword(user, password)) {
+    return res
+      .status(403)
+      .send({ status: "error", error: "Incorrect password" });
+  }
   let role;
-  let usern = user.email;
-  let name = user.first_name;
-  let lastn = user.last_name;
   if (email === "adminCoder@coder.com") {
     role = "admin";
   } else {
     role = "standar";
   }
-  req.session.user = {
-    usern,
-    name,
-    lastn,
-    role,
-  };
+  delete user.password;
+  req.session.user = user;
+  //req.session.user = {
+  //first_name: req.user.first_name,
+  //last_name: req.user.last_name,
+  //email: req.user.email,
+  //age: req.user.age,
+  //role,
+  //};
   res.redirect("/products");
 });
 

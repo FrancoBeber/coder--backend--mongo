@@ -9,8 +9,11 @@
     <img src="/assets/logo-ecommers.avif" alt="" width="200" />
     <hr>
     <a href="/products">products</a> | <a href="/products/create">create products</a> | <a href="/carts">carts</a> 
-    | <a href="/messages">messages</a> | <a href="/realtimeproducts">realtimeproducts</a>
+    | <a href="/messages">messages</a> | <a href="/realtimeproducts">realtimeproducts</a> | <a href="/sessions/login">login</a> | <a href="/sessions/logout">logout</a>
     </hr>
+    <div>
+        {{ user.first_name }}
+    </div>
     {{{body}}}
   </body>
 </html>
