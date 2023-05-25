@@ -8,6 +8,8 @@ import mongoose from "mongoose";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import sessionRouter from "./routes/session.router.js";
+import passport from "passport";
+import initializePassport from "./passport.config.js";
 
 const port = 8080;
 const app = express();
@@ -29,6 +31,10 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 //configuro motor de plantillas
 app.engine("handlebars", handlebars.engine());
