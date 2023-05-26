@@ -2,6 +2,7 @@ import passport from "passport";
 import local from "passport-local";
 import userModel from "./models/user.model.js";
 import { createHash, isValidPassword } from "./util.js";
+import GitHubStrategy from "passport-github2";
 const LocalStrategy = local.Strategy;
 
 const initializePassport = () => {
@@ -53,6 +54,35 @@ const initializePassport = () => {
 
           return done(null, user);
         } catch (err) {}
+      }
+    )
+  );
+
+  passport.use(
+    "github",
+    new GitHubStrategy(
+      {
+        clientID: "Iv1.20d8f05bb6d14832",
+        clientSecret: "8d06973dadcf2e35ffbd9e91726ff0bbedebde0f",
+        callbackURL: "http://localhost:8080/sessions/githubcallback",
+      },
+      async (accessToken, refreshToken, profile, done) => {
+        console.log(profile);
+        try {
+          const user = await userModel.findOne({ email: profile._json.email });
+          if (user) {
+            return done(null, user);
+          }
+
+          const newUser = await userModel.create({
+            first_name: profile._json.name,
+            email: profile._json.email,
+          });
+
+          return done(null, newUser);
+        } catch (err) {
+          return done("Error al ingresar con Github");
+        }
       }
     )
   );
