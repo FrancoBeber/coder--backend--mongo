@@ -41,13 +41,14 @@ router.put("/:id", async (req, res) => {
 router.put("/:id/products/:code", async (req, res) => {
   const id = +req.params.id;
   const codee = req.params.code;
-  const quant = req.body.quantity;
+  const { quant } = req.body;
   //const cart = await cartModel.findOne({ id: id }).lean().exec();
   //cart.products.code(codee).quantity += quant;
   try {
-    const result = await cartModel.updateOne(
+    const result = await cartModel.findOneAndUpdate(
       { id: id, products: { code: codee } },
-      { $set: { "products.quantity": quant } }
+      { $set: { "products.$.quantity": quant } },
+      { new: true }
     );
   } catch (err) {
     res.send({ err });
