@@ -1,6 +1,12 @@
 import { Router } from "express";
-import { generateToken, authToken } from "../util.js";
+import {
+  generateToken,
+  authToken,
+  passportCall,
+  authorization,
+} from "../util.js";
 import userModel from "../models/user.model.js";
+import passport from "passport";
 
 const router = Router();
 
@@ -39,6 +45,13 @@ router.post("/login", async (req, res) => {
   //res.json({ status: "success", access_token });
   //res.redirect("/products");
   res.cookie("vamoscolon", access_token).json({ status: "success" });
+  //res.redirect("/demo");
+});
+
+//router.get("/demo", authToken, (req, res) => {
+router.get("/demo", passportCall("jwt"), authorization("admin"), (req, res) => {
+  //res.render("demo");
+  res.json({ status: "success", payload: req.user });
 });
 
 export default router;

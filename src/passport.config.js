@@ -3,7 +3,16 @@ import local from "passport-local";
 import userModel from "./models/user.model.js";
 import { createHash, isValidPassword } from "./util.js";
 import GitHubStrategy from "passport-github2";
+import jwt, { ExtractJwt } from "passport-jwt";
+import { PRIVATE_KEY } from "./util.js";
+
 const LocalStrategy = local.Strategy;
+const JWTStrategy = jwt.Strategy;
+
+const cookieExtractor = (req) => {
+  const token = req && req.cookies ? req.cookies["vamoscolon"] : null;
+  return token;
+};
 
 const initializePassport = () => {
   passport.use(
@@ -94,6 +103,23 @@ const initializePassport = () => {
     const user = await userModel.findById(id);
     done(null, user);
   });
+
+  passport.use(
+    "jwt",
+    new JWTStrategy(
+      {
+        jwtFromRequest: ExtractJwt.fromExtractors([cookieExtractor]),
+        secretOrKey: PRIVATE_KEY,
+      },
+      async (jwt_payload, done) => {
+        try {
+          return done(null, jwt_payload);
+        } catch (error) {
+          return done(error);
+        }
+      }
+    )
+  );
 };
 
 export default initializePassport;
