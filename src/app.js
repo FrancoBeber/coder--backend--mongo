@@ -10,11 +10,14 @@ import MongoStore from "connect-mongo";
 import sessionRouter from "./routes/session.router.js";
 import passport from "passport";
 import initializePassport from "./passport.config.js";
+import jwtRouter from "./routes/jwt.router.js";
+import cookieParser from "cookie-parser";
 
 const port = 8080;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(
   session({
     store: MongoStore.create({
@@ -53,6 +56,7 @@ app.use("/products", productsRouter);
 app.use("/messages", messageRouter);
 app.use("/realtimeproducts", realTimeProductsRouter);
 app.use("/sessions", sessionRouter);
+app.use("/jwt", jwtRouter);
 
 mongoose.set("strictQuery", false);
 try {
