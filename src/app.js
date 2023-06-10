@@ -12,6 +12,13 @@ import passport from "passport";
 import initializePassport from "./passport.config.js";
 import jwtRouter from "./routes/jwt.router.js";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
+
+//const NODE_ENV = process.env.NODE_ENV || "";
+//dotenv.config({
+// path: `.env.${process.env.NODE_ENV}`,
+//});
+//console.log(process.env.NODE_ENV);
 
 const port = 8080;
 const app = express();
@@ -62,11 +69,13 @@ mongoose.set("strictQuery", false);
 try {
   await mongoose.connect(
     "mongodb+srv://fdbeber:KicETQ4TC3iqE3cy@backend.vzzo76k.mongodb.net/ecommerce"
+    //process.env.MONGO_CONNECTION
   );
 } catch (error) {
   console.log("No se pudo conectar a la base de datos");
 }
 
 app.listen(8080, () => {
-  console.log(`Server up at port${port}`);
+  console.log(`Server up at port ${port}`);
+  //console.log("Server up at port" + process.env.PORT);
 });

@@ -9,6 +9,17 @@ const userSchema = new mongoose.Schema({
   age: Number,
   password: String,
   role: String,
+  carts: {
+    type: [
+      {
+        cart: {
+          type: mongoose.Schema.Types.Number,
+          ref: "carts",
+        },
+      },
+    ],
+    default: [],
+  },
 });
 
 mongoose.set("strictQuery", false);

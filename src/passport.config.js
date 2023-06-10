@@ -24,6 +24,7 @@ const initializePassport = () => {
       },
       async (req, username, password, done) => {
         const { first_name, last_name, email, age } = req.body;
+        const role = "user";
         try {
           const user = await userModel.findOne({ email: username });
           if (user) {
@@ -36,6 +37,7 @@ const initializePassport = () => {
             email,
             age,
             password: createHash(password),
+            role,
           };
           const result = await userModel.create(newUser);
           return done(null, result);
